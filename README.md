@@ -1,4 +1,4 @@
-# 15 Puzzle
+# Slide Puzzles
 
 Demo: https://slidepuzzles.netlify.app/
 
