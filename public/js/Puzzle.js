@@ -10,6 +10,9 @@ export class Puzzle {
         this.enableMenu();
         this.createTiles();
         this.lastMovedTile = null;
+        this.challenge = false;
+        this.timer = 0;
+        this.score = 0;
     }
 
     adjustDOM() {
@@ -42,10 +45,42 @@ export class Puzzle {
                 $(this).css("visibility", "hidden");
             }, 200);
         });
+        $("#challengeBtn").click(() => {
+            this.startChallenge();
+        });
+    }
+
+    startChallenge() {
+        if (this.challenge) return;
+        this.challenge = true;
+        this.timer = 0;
+        $("#timer").show().text(this.timer);
+        $("#scrambleBtn").prop("disabled", true);
+        this.prepareScramble();
+        this.scramble(2);
+        setTimeout(() => {
+            this.scrambling = false;
+            this.timerInterval = setInterval(() => {
+                this.timer++;
+                $("#timer").text((this.timer / 10).toFixed(1));
+            }, 100);
+        }, this.size.x * this.size.y * 200);
+    }
+
+    stopChallenge() {
+        if (!this.challenge) return;
+        clearInterval(this.timerInterval);
+        this.score = this.timer / 10;
+        $("#scrambleBtn").prop("disabled", false);
+        $("#score").text(`Score: ${this.score.toFixed(1)}`);
+        this.challenge = false;
+        this.timer = 0;
+        $("#timer").hide();
     }
 
     changeSize(coord) {
         if (this.scrambling) return;
+        this.stopChallenge();
         this.size[coord] = parseInt($(`#input_${coord}`).val());
         this.emptyPos = { x: this.size.x - 1, y: this.size.y - 1 };
         this.adjustDOM();
@@ -68,7 +103,10 @@ export class Puzzle {
 
     prepareScramble() {
         this.scrambling = true;
-        $("#resetBtn, #sizeBtn, input").prop("disabled", true);
+        $("#resetBtn, #sizeBtn, #challengeBtn, input").prop(
+            "disabled",
+            true
+        );
         $("#scrambleBtn").text("Stop");
         $("#puzzle").addClass("scrambling");
         $("#sizeControls").slideUp();
@@ -76,12 +114,15 @@ export class Puzzle {
 
     stopScramble() {
         this.scrambling = false;
-        $("#resetBtn, #sizeBtn, input").prop("disabled", false);
+        $("#resetBtn, #sizeBtn, #challengeBtn, input").prop(
+            "disabled",
+            false
+        );
         $("#scrambleBtn").text("Scramble");
         $("#puzzle").removeClass("scrambling");
     }
 
-    async scramble() {
+    async scramble(wait = 50) {
         while (this.scrambling) {
             const tilesAround = Tile.list.filter(
                 (tile) =>
@@ -91,7 +132,7 @@ export class Puzzle {
             const tile = randEl(tilesAround);
             const pos = tile.pos;
             tile.moveTo(this.emptyPos);
-            await sleep(50);
+            if (wait > 0) await sleep(wait);
             this.emptyPos = pos;
             this.lastMovedTile = tile;
         }
@@ -99,6 +140,7 @@ export class Puzzle {
     }
 
     reset() {
+        this.stopChallenge();
         for (const tile of Tile.list) {
             tile.moveTo(tile.correctPos);
         }
@@ -111,6 +153,11 @@ export class Puzzle {
             $("#solveMessage")
                 .css("visibility", "visible")
                 .css("opacity", 1);
+            $("#score").css(
+                "display",
+                this.challenge ? "block" : "none"
+            );
+            this.stopChallenge();
         }
     }
 }

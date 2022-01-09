@@ -197,6 +197,7 @@ input[type="range"] {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     background-color: #fffc;
     font-weight: bold;
     font-size: 60px;
@@ -210,4 +211,19 @@ input[type="range"] {
 
 .emoji {
     font-weight: initial !important;
+}
+
+/* timer */
+
+#timer {
+    display: none;
+    margin-top: -40px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: #222;
+}
+
+#score {
+    font-size: 40px;
 }

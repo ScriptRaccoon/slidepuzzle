@@ -14,6 +14,7 @@
         <button id="scrambleBtn">Scramble</button>
         <button id="resetBtn">Reset</button>
         <button id="sizeBtn">Change Size</button>
+        <button id="challengeBtn">Challenge</button>
     </menu>
     <form id="sizeControls">
         <div>
@@ -53,7 +54,10 @@
     </form>
     <main id="puzzle">
     </main>
-    <div id="solveMessage">Solved! <span class="emoji">🎉</span></div>
+    <aside id="timer"></aside>
+    <div id="solveMessage">
+        <div>Solved! <span class="emoji">🎉</span></div>
+        <div id="score"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
     <script src="./js/main.js" type="module"></script>
 </body>
