@@ -40,14 +40,14 @@ export class Puzzle {
         $("#sizeBtn").click(() => $("#sizeControls").slideToggle());
         $("#input_x").change(() => this.changeSize("x"));
         $("#input_y").change(() => this.changeSize("y"));
-        $("#solveDisplay").click(function () {
-            $(this).css("opacity", 0);
-            setTimeout(() => {
-                $(this).css("visibility", "hidden");
-            }, 200);
-        });
         $("#challengeBtn").click(() => {
             this.startChallenge();
+        });
+        $("#restartBtn").click(() => {
+            $("#solveDisplay").css("opacity", 0);
+            setTimeout(() => {
+                $("#solveDisplay").css("visibility", "hidden");
+            }, 200);
         });
     }
 
@@ -170,12 +170,12 @@ export class Puzzle {
         clearInterval(this.timerInterval);
         this.score = this.timer / 10;
         const highScore = this.getHighScore();
-        $("#scoreMessage").text(
+        $("#scoreMessage").html(
             `${this.size.x}×${
                 this.size.y
             }-Score: ${this.score.toFixed(
                 1
-            )} (Best: ${highScore.toFixed(1)})`
+            )}<br>(Best: ${highScore.toFixed(1)})`
         );
         this.saveHighScore(highScore);
         this.challenge = false;
@@ -195,6 +195,7 @@ export class Puzzle {
     }
 
     saveHighScore(highScore) {
+        if (highScore == 0) return;
         const sizeString = JSON.stringify(this.size);
         localStorage.setItem(sizeString, highScore);
     }

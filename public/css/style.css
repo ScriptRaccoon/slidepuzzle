@@ -36,6 +36,7 @@ button {
     border: none;
     outline: none;
     cursor: pointer;
+    background: inherit;
 }
 
 /* header */
@@ -56,7 +57,7 @@ menu {
     margin-bottom: 10px;
 }
 
-menu button {
+.button {
     background: linear-gradient(rgb(26, 149, 26), rgb(14, 131, 14));
     color: white;
     margin: 5px;
@@ -67,12 +68,12 @@ menu button {
     letter-spacing: 1px;
 }
 
-menu button:hover,
-menu button:focus-visible {
+.button:hover,
+.button:focus-visible {
     filter: brightness(1.15);
 }
 
-menu button:disabled {
+.button:disabled {
     background: #aaa;
     pointer-events: none;
 }
@@ -198,12 +199,10 @@ input[type="range"] {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #fff;
+    background-color: #fffc;
     font-weight: bold;
     opacity: 0;
     transition: opacity 200ms linear;
-    user-select: none;
-    cursor: pointer;
     visibility: hidden;
     z-index: 100;
     text-align: center;
@@ -220,7 +219,10 @@ input[type="range"] {
 #scoreMessage {
     padding: 0px 5px;
     font-size: 30px;
-    color: rgb(14, 131, 14);
+}
+
+#restartBtn {
+    margin-top: 20px;
 }
 
 /* timer */
