@@ -191,7 +191,7 @@ input[type="range"] {
 
 /* solved message */
 
-#solveMessage {
+#solveDisplay {
     position: absolute;
     inset: 0;
     display: flex;
@@ -225,5 +225,13 @@ input[type="range"] {
 }
 
 #score {
+    font-size: 40px;
+}
+
+#highScore {
+    font-size: 40px;
+}
+
+#size {
     font-size: 40px;
 }
