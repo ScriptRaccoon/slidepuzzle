@@ -228,9 +228,11 @@ input[type="range"] {
 /* timer */
 
 #timer {
-    display: none;
     margin-top: -40px;
     text-align: center;
     font-weight: bold;
     font-size: 20px;
+    opacity: 0;
+    transition: opacity 150ms linear;
+    user-select: none;
 }

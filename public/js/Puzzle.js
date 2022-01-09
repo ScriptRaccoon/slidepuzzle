@@ -120,7 +120,7 @@ export class Puzzle {
         if (this.challenge) {
             clearInterval(this.timerInterval);
             this.challenge = false;
-            $("#timer").hide();
+            $("#timer").css("opacity", 0);
             this.timer = 0;
             $("button, input").prop("disabled", false);
         }
@@ -148,7 +148,7 @@ export class Puzzle {
         if (this.challenge) return;
         this.challenge = true;
         this.timer = 0;
-        $("#timer").show().text(this.timer);
+        $("#timer").css("opacity", 1).text(this.timer);
         $("#scrambleBtn, #sizeBtn, #challengeBtn").prop(
             "disabled",
             true
@@ -179,7 +179,7 @@ export class Puzzle {
         );
         this.saveHighScore(highScore);
         this.challenge = false;
-        $("#timer").hide();
+        $("#timer").css("opacity", 0);
         this.timer = 0;
     }
 
