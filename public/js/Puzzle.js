@@ -75,23 +75,21 @@ export class Puzzle {
         $("#puzzle").removeClass("scrambling");
     }
 
-    async scramble(iterations = this.size.x * this.size.y * 10) {
-        if (iterations <= 0 || !this.scrambling) {
-            this.stopScramble();
-            return;
+    async scramble() {
+        while (this.scrambling) {
+            const tilesAround = Tile.list.filter(
+                (tile) =>
+                    manhattanDistance(tile.pos, this.emptyPos) == 1 &&
+                    tile != this.lastMovedTile
+            );
+            const tile = randEl(tilesAround);
+            const pos = tile.pos;
+            tile.moveTo(this.emptyPos);
+            await sleep(50);
+            this.emptyPos = pos;
+            this.lastMovedTile = tile;
         }
-        const tilesAround = Tile.list.filter(
-            (tile) =>
-                manhattanDistance(tile.pos, this.emptyPos) == 1 &&
-                tile != this.lastMovedTile
-        );
-        const tile = randEl(tilesAround);
-        const pos = tile.pos;
-        tile.moveTo(this.emptyPos);
-        await sleep(50);
-        this.emptyPos = pos;
-        this.lastMovedTile = tile;
-        this.scramble(iterations - 1);
+        this.stopScramble();
     }
 
     reset() {
