@@ -19,12 +19,11 @@ export class Puzzle {
         $("#puzzle")
             .css("--size_x", this.size.x)
             .css("--size_y", this.size.y);
-        const sizeString = `${this.size.x}×${this.size.y}`;
-        $("h1").html(`${sizeString} Puzzle`);
-        document.title = `${sizeString} Puzzle`;
+        const title = `${this.size.x}×${this.size.y} Puzzle`;
+        $("h1").html(title);
+        document.title = title;
         $("#input_x").val(this.size.x);
         $("#input_y").val(this.size.y);
-        $("#size").html(`Size: ${sizeString}`);
     }
 
     enableMenu() {
@@ -170,9 +169,14 @@ export class Puzzle {
         if (!this.challenge) return;
         clearInterval(this.timerInterval);
         this.score = this.timer / 10;
-        $("#score").text(`Score: ${this.score.toFixed(1)}`);
         const highScore = this.getHighScore();
-        $("#highScore").text(`Highscore: ${highScore.toFixed(1)}`);
+        $("#scoreMessage").text(
+            `${this.size.x}×${
+                this.size.y
+            }-Score: ${this.score.toFixed(
+                1
+            )} (Best: ${highScore.toFixed(1)})`
+        );
         this.saveHighScore(highScore);
         this.challenge = false;
         $("#timer").hide();
