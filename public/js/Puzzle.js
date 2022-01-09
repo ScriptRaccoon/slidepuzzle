@@ -5,7 +5,7 @@ export class Puzzle {
     constructor({ size }) {
         this.size = size;
         this.emptyPos = { x: this.size.x - 1, y: this.size.y - 1 };
-        this.solving = false;
+        this.scrambling = false;
         this.adjustDOM();
         this.enableMenu();
         this.createTiles();
@@ -25,8 +25,8 @@ export class Puzzle {
 
     enableMenu() {
         $("#scrambleBtn").click(() => {
-            if (this.solving) {
-                this.solving = false;
+            if (this.scrambling) {
+                this.scrambling = false;
             } else {
                 this.prepareScramble();
                 this.scramble();
@@ -39,7 +39,7 @@ export class Puzzle {
     }
 
     changeSize(coord) {
-        if (this.solving) return;
+        if (this.scrambling) return;
         this.size[coord] = parseInt($(`#input_${coord}`).val());
         this.emptyPos = { x: this.size.x - 1, y: this.size.y - 1 };
         this.adjustDOM();
@@ -61,22 +61,22 @@ export class Puzzle {
     }
 
     prepareScramble() {
-        this.solving = true;
+        this.scrambling = true;
         $("#resetBtn, #sizeBtn, input").prop("disabled", true);
         $("#scrambleBtn").text("Stop");
-        $("#puzzle").addClass("solving");
+        $("#puzzle").addClass("scrambling");
         $("#sizeControls").slideUp();
     }
 
     stopScramble() {
-        this.solving = false;
+        this.scrambling = false;
         $("#resetBtn, #sizeBtn, input").prop("disabled", false);
         $("#scrambleBtn").text("Scramble");
-        $("#puzzle").removeClass("solving");
+        $("#puzzle").removeClass("scrambling");
     }
 
     async scramble(iterations = this.size.x * this.size.y * 10) {
-        if (iterations <= 0 || !this.solving) {
+        if (iterations <= 0 || !this.scrambling) {
             this.stopScramble();
             return;
         }

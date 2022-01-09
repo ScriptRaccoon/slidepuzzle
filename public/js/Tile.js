@@ -30,7 +30,7 @@ export class Tile {
     }
 
     handleClick() {
-        if (this.puzzle.solving) return;
+        if (this.puzzle.scrambling) return;
         const pos = this.pos;
         if (manhattanDistance(pos, this.puzzle.emptyPos) == 1) {
             this.moveTo(this.puzzle.emptyPos);

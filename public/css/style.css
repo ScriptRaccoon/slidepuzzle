@@ -177,15 +177,15 @@ input[type="range"] {
     filter: brightness(1.1);
 }
 
-/* solving puzzle */
+/* scrambling puzzle */
 
-#puzzle.solving {
+#puzzle.scrambling {
     pointer-events: none;
     opacity: 0.8;
     transform: scale(0.97);
 }
 
-#puzzle.solving .tile {
+#puzzle.scrambling .tile {
     transition: transform 50ms ease-in-out;
 }
 
