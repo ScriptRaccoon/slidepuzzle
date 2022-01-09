@@ -19,12 +19,12 @@ export class Puzzle {
         $("#puzzle")
             .css("--size_x", this.size.x)
             .css("--size_y", this.size.y);
-        const count = this.size.x * this.size.y - 1;
-        $("h1").text(`${count} Puzzle`);
-        document.title = `${count} Puzzle`;
+        const sizeString = `${this.size.x}×${this.size.y}`;
+        $("h1").html(`${sizeString} Puzzle`);
+        document.title = `${sizeString} Puzzle`;
         $("#input_x").val(this.size.x);
         $("#input_y").val(this.size.y);
-        $("#size").html(`Size: ${this.size.x}&times;${this.size.y}`);
+        $("#size").html(`Size: ${sizeString}`);
     }
 
     enableMenu() {
@@ -133,15 +133,14 @@ export class Puzzle {
             $("#solveDisplay")
                 .css("visibility", "visible")
                 .css("opacity", 1);
-            $("#score, #highScore, #size").css(
-                "display",
-                this.challenge ? "block" : "none"
-            );
-            $("#solveMessage").css(
-                "display",
-                this.challenge ? "none" : "block"
-            );
-            $("button, input").prop("disabled", false);
+            if (this.challenge) {
+                $("#scoreMessage").show();
+                $("#solveMessage").hide();
+                $("button, input").prop("disabled", false);
+            } else {
+                $("#scoreMessage").hide();
+                $("#solveMessage").show();
+            }
             this.stopChallenge();
         }
     }
