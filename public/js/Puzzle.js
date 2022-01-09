@@ -36,6 +36,12 @@ export class Puzzle {
         $("#sizeBtn").click(() => $("#sizeControls").slideToggle());
         $("#input_x").change(() => this.changeSize("x"));
         $("#input_y").change(() => this.changeSize("y"));
+        $("#solveMessage").click(function () {
+            $(this).css("opacity", 0);
+            setTimeout(() => {
+                $(this).css("visibility", "hidden");
+            }, 200);
+        });
     }
 
     changeSize(coord) {
@@ -102,10 +108,9 @@ export class Puzzle {
     checkSolved() {
         const solved = Tile.list.every((tile) => tile.isCorrect);
         if (solved) {
-            $("#solveMessage").css("opacity", 1);
-            setTimeout(() => {
-                $("#solveMessage").css("opacity", 0);
-            }, 2500);
+            $("#solveMessage")
+                .css("visibility", "visible")
+                .css("opacity", 1);
         }
     }
 }

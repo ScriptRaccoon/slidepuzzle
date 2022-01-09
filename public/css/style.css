@@ -197,11 +197,13 @@ input[type="range"] {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 100;
     background-color: #fffc;
     font-weight: bold;
     font-size: 60px;
-    pointer-events: none;
     opacity: 0;
     transition: opacity 200ms linear;
+    user-select: none;
+    cursor: pointer;
+    visibility: hidden;
+    z-index: 100;
 }
