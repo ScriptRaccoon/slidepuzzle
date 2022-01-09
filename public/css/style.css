@@ -207,3 +207,7 @@ input[type="range"] {
     visibility: hidden;
     z-index: 100;
 }
+
+.emoji {
+    font-weight: initial !important;
+}
