@@ -1,0 +1,208 @@
+/* general */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+button {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+/* background */
+
+body:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: url("../img/bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.6;
+}
+
+/* header */
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 40px;
+    color: #23133b;
+}
+
+/* menu */
+
+menu {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+menu button {
+    background: linear-gradient(rgb(26, 149, 26), rgb(14, 131, 14));
+    color: white;
+    margin: 5px;
+    padding: 6px 12px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+menu button:hover,
+menu button:focus-visible {
+    filter: brightness(1.15);
+}
+
+menu button:disabled {
+    background: #aaa;
+    pointer-events: none;
+}
+
+#scrambleBtn {
+    width: 100px;
+}
+
+/* size controls */
+
+#sizeControls {
+    display: none;
+    padding: 10px 10px;
+}
+
+#sizeControls > div {
+    display: flex;
+    padding: 10px 0px;
+}
+
+#sizeControls label {
+    width: 60px;
+}
+
+.rangeContainer {
+    width: 280px;
+    position: relative;
+}
+
+input[type="range"] {
+    width: 100%;
+}
+
+.ruler {
+    display: flex;
+    justify-content: space-between;
+    width: 97%;
+    font-weight: bold;
+    font-size: 12px;
+    margin-left: 7px;
+}
+
+/* puzzle */
+
+#puzzle {
+    --size_x: 4;
+    --size_y: 4;
+    --tileSize: min(calc(100 / (1 + var(--size_x)) * 1vw), 60px);
+    margin-top: 10px;
+    margin-bottom: 50px;
+    width: calc(var(--size_x) * var(--tileSize));
+    height: calc(var(--size_y) * var(--tileSize));
+    padding: 5px;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode",
+        "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+    position: relative;
+    transition: opacity 200ms linear, transform 150ms ease;
+    border-radius: 10px;
+    border: 5px solid rgb(163, 69, 15);
+    background-color: rgb(241, 197, 131);
+    box-shadow: 0px 0px 3px #0007 inset, 0px 0px 10px #0007;
+    outline: 1px solid rgb(114, 44, 11);
+}
+
+/* tiles */
+
+.tile {
+    --x: 0;
+    --y: 0;
+    transform: translate(
+        calc(var(--x) * var(--tileSize)),
+        calc(var(--y) * var(--tileSize))
+    );
+    width: var(--tileSize);
+    height: var(--tileSize);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 140ms ease-in-out;
+    user-select: none;
+}
+
+.tileContent {
+    border-radius: 6px;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(
+        to bottom left,
+        rgb(179, 123, 21),
+        rgb(163, 62, 15)
+    );
+    box-shadow: 0px 0px 10px #0006 inset;
+    font-size: calc(0.6 * var(--tileSize));
+    color: white;
+}
+
+.tileContent:hover,
+.tileContent:focus-visible {
+    filter: brightness(1.1);
+}
+
+/* solving puzzle */
+
+#puzzle.solving {
+    pointer-events: none;
+    opacity: 0.8;
+    transform: scale(0.97);
+}
+
+#puzzle.solving .tile {
+    transition: transform 50ms ease-in-out;
+}
+
+/* solved message */
+
+#solveMessage {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    background-color: #fffc;
+    font-weight: bold;
+    font-size: 60px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 200ms linear;
+}

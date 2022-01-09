@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15 Puzzle</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header>
+        <h1>15 Puzzle</h1>
+    </header>
+    <menu>
+        <button id="scrambleBtn">Scramble</button>
+        <button id="resetBtn">Reset</button>
+        <button id="sizeBtn">Change Size</button>
+    </menu>
+    <form id="sizeControls">
+        <div>
+            <label for="input_x">Width</label>
+            <div class="rangeContainer">
+                <input type="range" id="input_x" min="2" max="10">
+                <div class="ruler">
+                    <span>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                    <span>6</span>
+                    <span>7</span>
+                    <span>8</span>
+                    <span>9</span>
+                    <span>10</span>
+                </div>
+            </div>            
+        </div>
+        <div>
+            <label for="input_y">Height</label>
+            <div class="rangeContainer">
+                <input type="range" id="input_y" min="2" max="10">
+                <div class="ruler">
+                    <span>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                    <span>6</span>
+                    <span>7</span>
+                    <span>8</span>
+                    <span>9</span>
+                    <span>10</span>
+                </div>
+            </div>            
+        </div>       
+    </form>
+    <main id="puzzle">
+    </main>
+    <div id="solveMessage">Solved! 🎉</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script src="./js/main.js" type="module"></script>
+</body>
+</html>
