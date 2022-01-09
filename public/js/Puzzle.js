@@ -175,7 +175,7 @@ export class Puzzle {
                 this.size.y
             }-Score: ${this.score.toFixed(
                 1
-            )}<br>(Best: ${highScore.toFixed(1)})`
+            )}<br>Best: ${highScore.toFixed(1)}`
         );
         this.saveHighScore(highScore);
         this.challenge = false;
