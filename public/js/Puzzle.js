@@ -1,4 +1,5 @@
 import { Tile } from "./Tile.js";
+import { Timer } from "./Timer.js";
 import { manhattanDistance, randEl, sleep } from "./utils.js";
 
 const scrambleSpeed = 25;
@@ -13,8 +14,7 @@ export class Puzzle {
         this.createTiles();
         this.lastMovedTile = null;
         this.challenge = false;
-        this.timer = 0;
-        this.score = 0;
+        this.timer = new Timer();
     }
 
     adjustDOM() {
@@ -120,10 +120,8 @@ export class Puzzle {
         }
         this.emptyPos = { x: this.size.x - 1, y: this.size.y - 1 };
         if (this.challenge) {
-            clearInterval(this.timerInterval);
+            this.timer.reset();
             this.challenge = false;
-            $("#timer").css("opacity", 0);
-            this.timer = 0;
             $("button, input").prop("disabled", false);
         }
     }
@@ -149,7 +147,6 @@ export class Puzzle {
     startChallenge() {
         if (this.challenge) return;
         this.challenge = true;
-        this.timer = 0;
         $("#scrambleBtn, #sizeBtn, #challengeBtn").prop(
             "disabled",
             true
@@ -157,43 +154,34 @@ export class Puzzle {
         this.prepareScramble();
         this.scramble(1);
         setTimeout(() => {
-            $("#timer").css("opacity", 1).text(this.timer);
             this.scrambling = false;
-            this.timerInterval = setInterval(() => {
-                this.timer++;
-                $("#timer").text((this.timer / 10).toFixed(1));
-            }, 100);
+            this.timer.start();
             $("#resetBtn").prop("disabled", false);
         }, this.size.x * this.size.y * 500);
     }
 
     stopChallenge() {
-        clearInterval(this.timerInterval);
+        const score = this.timer.getScore();
+        this.timer.reset();
         this.challenge = false;
-        this.score = this.timer / 10;
-        const highScore = this.getHighScore();
+        const highScore = this.getHighScore(score);
         $("#scoreMessage").html(
-            `${this.size.x}×${
-                this.size.y
-            }-Score: ${this.score.toFixed(
+            `${this.size.x}×${this.size.y}-Score: ${score.toFixed(
                 1
             )}<br>Best: ${highScore.toFixed(1)}`
         );
         this.saveHighScore(highScore);
-
-        $("#timer").css("opacity", 0);
-        this.timer = 0;
     }
 
-    getHighScore() {
+    getHighScore(score) {
         let previousScore = localStorage.getItem(
             JSON.stringify(this.size)
         );
         if (previousScore) {
             previousScore = parseInt(previousScore);
-            return Math.min(this.score, previousScore);
+            return Math.min(score, previousScore);
         } else {
-            return this.score;
+            return score;
         }
     }
 
