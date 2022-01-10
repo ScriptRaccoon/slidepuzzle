@@ -162,7 +162,7 @@ export class Puzzle {
                 $("#timer").text((this.timer / 10).toFixed(1));
             }, 100);
             $("#resetBtn").prop("disabled", false);
-        }, this.size.x * this.size.y * 200);
+        }, this.size.x * this.size.y * 500);
     }
 
     stopChallenge() {
