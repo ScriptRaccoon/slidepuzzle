@@ -1,6 +1,8 @@
 import { Tile } from "./Tile.js";
 import { manhattanDistance, randEl, sleep } from "./utils.js";
 
+const scrambleSpeed = 25;
+
 export class Puzzle {
     constructor({ size }) {
         this.size = size;
@@ -95,7 +97,7 @@ export class Puzzle {
         $("#puzzle").removeClass("scrambling");
     }
 
-    async scramble(wait = 35) {
+    async scramble(wait = 25) {
         while (this.scrambling) {
             const tilesAround = Tile.list.filter(
                 (tile) =>
@@ -154,7 +156,7 @@ export class Puzzle {
             true
         );
         this.prepareScramble();
-        this.scramble(2);
+        this.scramble(1);
         setTimeout(() => {
             this.scrambling = false;
             this.timerInterval = setInterval(() => {

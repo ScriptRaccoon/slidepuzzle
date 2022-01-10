@@ -187,7 +187,7 @@ input[type="range"] {
 }
 
 #puzzle.scrambling .tile {
-    transition: transform 35ms ease-in-out;
+    transition: transform 25ms ease-in-out;
 }
 
 /* solve display */
