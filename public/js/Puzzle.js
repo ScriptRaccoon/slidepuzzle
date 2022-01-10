@@ -95,7 +95,7 @@ export class Puzzle {
         $("#puzzle").removeClass("scrambling");
     }
 
-    async scramble(wait = 50) {
+    async scramble(wait = 35) {
         while (this.scrambling) {
             const tilesAround = Tile.list.filter(
                 (tile) =>
