@@ -135,6 +135,7 @@ export class Puzzle {
                 .css("visibility", "visible")
                 .css("opacity", 1);
             if (this.challenge) {
+                this.stopChallenge();
                 $("#scoreMessage").show();
                 $("#solveMessage").hide();
                 $("button, input").prop("disabled", false);
@@ -142,7 +143,6 @@ export class Puzzle {
                 $("#scoreMessage").hide();
                 $("#solveMessage").show();
             }
-            this.stopChallenge();
         }
     }
 
@@ -150,7 +150,6 @@ export class Puzzle {
         if (this.challenge) return;
         this.challenge = true;
         this.timer = 0;
-        $("#timer").css("opacity", 1).text(this.timer);
         $("#scrambleBtn, #sizeBtn, #challengeBtn").prop(
             "disabled",
             true
@@ -158,6 +157,7 @@ export class Puzzle {
         this.prepareScramble();
         this.scramble(1);
         setTimeout(() => {
+            $("#timer").css("opacity", 1).text(this.timer);
             this.scrambling = false;
             this.timerInterval = setInterval(() => {
                 this.timer++;
@@ -168,8 +168,8 @@ export class Puzzle {
     }
 
     stopChallenge() {
-        if (!this.challenge) return;
         clearInterval(this.timerInterval);
+        this.challenge = false;
         this.score = this.timer / 10;
         const highScore = this.getHighScore();
         $("#scoreMessage").html(
@@ -180,14 +180,15 @@ export class Puzzle {
             )}<br>Best: ${highScore.toFixed(1)}`
         );
         this.saveHighScore(highScore);
-        this.challenge = false;
+
         $("#timer").css("opacity", 0);
         this.timer = 0;
     }
 
     getHighScore() {
-        const sizeString = JSON.stringify(this.size);
-        let previousScore = localStorage.getItem(sizeString);
+        let previousScore = localStorage.getItem(
+            JSON.stringify(this.size)
+        );
         if (previousScore) {
             previousScore = parseInt(previousScore);
             return Math.min(this.score, previousScore);
@@ -198,7 +199,6 @@ export class Puzzle {
 
     saveHighScore(highScore) {
         if (highScore == 0) return;
-        const sizeString = JSON.stringify(this.size);
-        localStorage.setItem(sizeString, highScore);
+        localStorage.setItem(JSON.stringify(this.size), highScore);
     }
 }
