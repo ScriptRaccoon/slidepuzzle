@@ -45,12 +45,14 @@ export class Puzzle {
         $("#challengeBtn").click(() => {
             this.startChallenge();
         });
-        $("#restartBtn").click(() => {
-            $("#solveDisplay").css("opacity", 0);
-            setTimeout(() => {
-                $("#solveDisplay").css("visibility", "hidden");
-            }, 200);
-        });
+        $("#restartBtn").click(() => this.restart());
+    }
+
+    restart() {
+        $("#solveDisplay").css("opacity", 0);
+        setTimeout(() => {
+            $("#solveDisplay").css("visibility", "hidden");
+        }, 200);
     }
 
     changeSize(coord) {
